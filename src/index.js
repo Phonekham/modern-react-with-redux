@@ -6,12 +6,29 @@ import SeasonDisplay from "./SeasonDisplay";
 // import faker from "faker";
 
 class App extends React.Component {
-  render() {
+  constructor(props) {
+    super(props);
+    this.state = {
+      lat: null,
+      errorMessage: ""
+    };
     window.navigator.geolocation.getCurrentPosition(
-      position => console.log(position),
-      err => console.log(err)
+      position => {
+        this.setState({ lat: position.coords.latitude });
+      },
+      err => {
+        this.setState({ errorMessage: err.message });
+      }
     );
-    return <div>Ladtitude:</div>;
+  }
+  render() {
+    if (this.state.errorMessage && !this.state.lat) {
+      return <div> Error: {this.state.errorMessage}</div>;
+    }
+    if (this.state.lat && !this.state.errorMessage) {
+      return <div> latitude: {this.state.lat}</div>;
+    }
+    return <div>loading</div>;
   }
 }
 
