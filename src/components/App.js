@@ -1,30 +1,22 @@
 import React from "react";
-import unsplash from "../api/unsplash";
-import SearchBar from "./SearchBar";
-import ImageList from "./ImageList";
+import { BrowserRouter, Route } from "react-router-dom";
 
-class App extends React.Component {
-  state = {
-    images: []
-  };
+const pageOne = () => {
+  return <div>Pageone</div>;
+};
+const pageTwo = () => {
+  return <div>PageTwo</div>;
+};
 
-  onSearchSubmit = async term => {
-    // console.log(term); //involk callback in children
-    const response = await unsplash.get("/search/photos", {
-      params: { query: term }
-    });
-
-    // console.log(response.data.results);
-    this.setState({ images: response.data.results });
-  };
-  render() {
-    return (
-      <div className="ui container" style={{ marginTop: "10px" }}>
-        <SearchBar onSubmit={this.onSearchSubmit} />
-        <ImageList images={this.state.images} />
-      </div>
-    );
-  }
-}
+const App = () => {
+  return (
+    <div>
+      <BrowserRouter>
+        <Route path="/" exact component={pageOne} />
+        <Route path="/pagetwo" component={pageTwo} />
+      </BrowserRouter>
+    </div>
+  );
+};
 
 export default App;
