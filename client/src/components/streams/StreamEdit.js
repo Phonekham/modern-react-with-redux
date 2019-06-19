@@ -1,6 +1,9 @@
 import React from "react";
+import { connect } from "react-redux";
 
-const StreamEdit = () => {
+const StreamEdit = props => {
+  console.log(props);
+
   return (
     <div>
       <h1>StreamEdit</h1>
@@ -8,4 +11,8 @@ const StreamEdit = () => {
   );
 };
 
-export default StreamEdit;
+const mapStateToProps = (state, ownProps) => {
+  return { stream: state.streams[ownProps.match.params.id] };
+};
+
+export default connect(mapStateToProps)(StreamEdit);
