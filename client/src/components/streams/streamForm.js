@@ -59,7 +59,7 @@ const validate = formValues => {
   return errors;
 };
 
-export default (formWrapped = reduxForm({
+export default reduxForm({
   form: "streamForm",
   validate
-})(StreamForm));
+})(StreamForm);
